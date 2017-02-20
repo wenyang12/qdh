@@ -12,16 +12,18 @@
         <div class="qdh-input-row ">
             <label><span>请输入球道号：</span><textarea tabindex="1" placeholder="球道号以空格或逗号隔开" id="js_qdh_number"></textarea><button id="js_number_clear">清空</button></label>
             <i>(如1,2,3 或 1 2 3)</i>
+            <div id="js_number_calc" class="qdh_name_calc">0道</div>
         </div>
         <div class="qdh-input-row">
             <label><span>请输入姓名：</span><textarea tabindex="1" placeholder="姓名以空格或逗号隔开" id="js_qdh_name"></textarea><button id="js_name_clear">清空</button></label>
             <i>(如张三,李四,王五 或 张三 李四 王五)</i>
+            <div id="js_name_calc" class="qdh_name_calc">0人</div>
         </div>
         <div class="qdh-input-button">
             <button type="submit" tabindex="1" id="js_qdh_btn_random">随机生成</button><button id="js_qdh_btn_clear">全部清空</button>
         </div>
     </article>
-    <article  class="qdh-table-container">
+    <article  class="qdh-table-container" id="js_table_container">
         <table class="qdh-table">
             <thead>
             <tr>
@@ -32,6 +34,7 @@
             </thead>
             <tbody id="js_qdh_output"></tbody>
         </table>
+        <div id="js_table_other"></div>
     </article>
 </section>
 <script src="../app/main.js"></script>

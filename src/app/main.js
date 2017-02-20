@@ -29,7 +29,13 @@
             return this.ele.nameNode.value;
         },
 
-
+        /**
+         * 实时计算人数，或球道
+         * @arr Array 人数或球道数组
+         */
+        calcNumber: function (arr) {
+            return arr.length;
+        },
 
         /**
          * 随机捣乱姓名
@@ -91,6 +97,29 @@
             });
         },
 
+        /**
+         * 构建其他表格
+         * @param obj Object  表格数组对象
+         */
+        buildOtherTable: function (obj) {
+            var tableNode = null,
+                tableNodes = null;
+            for( var key in obj){
+                if(key != 0){
+                    tableNode =document.createElement("table");
+                    tableNode.className = "qdh-table";
+                    tableNode.innerHTML = "<thead> <tr> <th>序</th> <th>球道号</th> <th>姓名</th> </tr> </thead> " +
+                        "<tbody>"+obj[key].join('')+"</tbody>";
+
+                    this.ele.otherTableNode.appendChild(tableNode);
+                    tableNodes = this.ele.tableContainerNode.getElementsByTagName('table');
+                    Array.prototype.slice.call(tableNodes).forEach(function(item) {
+                        item.style.width = Math.floor(100 / (+key + 1)) - 2 + "%";
+                    })
+                }
+            }
+        },
+
         setTitle: function (title) {
             this.ele.titleNode.innerHTML = "\u4e50\u6cf0\u90fd\u4fdd\u9f84\u7403\u9986\uff08\u62bd\u7b7e\u7403\u9053\u5b89\u6392\uff09";
         },
@@ -106,6 +135,29 @@
             }
         },
 
+        /**
+         * 分表格
+         * @param arr  表格填充的数组
+         * @param number 需要多少个人数划分为一个表格
+         */
+        tableColumn: function (arr,number) {
+            var newArr = arr.slice(),
+                result = {},
+                i = 0;
+            function main(newArr) {
+                if(newArr.length <= number){
+                    result[i++] = newArr;
+                }else{
+                    result[i++] = newArr.splice(0, number);
+                    main(newArr);
+                }
+            }
+
+            main(newArr);
+            // console.log(result);
+            return result;
+        },
+
         initElement: function () {
             this.ele.randomNode = this.getEle("js_qdh_btn_random");
             this.ele.clearNode = this.getEle("js_qdh_btn_clear");
@@ -115,6 +167,10 @@
             this.ele.nameClearNode = this.getEle("js_name_clear");
             this.ele.numberClearNode = this.getEle("js_number_clear");
             this.ele.titleNode = this.getEle("js_qdh_title");
+            this.ele.numberCalcNode = this.getEle("js_number_calc");
+            this.ele.nameCalcNode = this.getEle("js_name_calc");
+            this.ele.tableContainerNode = this.getEle("js_table_container");
+            this.ele.otherTableNode = this.getEle("js_table_other");
         },
 
         initEvent: function () {
@@ -124,6 +180,8 @@
             ele.clearNode.addEventListener("click", me.clearHandler.bind(me));
             ele.nameClearNode.addEventListener("click", me.clearNameHandler.bind(me));
             ele.numberClearNode.addEventListener("click", me.clearNumberHandler.bind(me));
+            ele.numberNode.addEventListener("input", me.calcHandler.bind(me));
+            ele.nameNode.addEventListener("input", me.calcHandler.bind(me));
         },
 
         randomHandler: function (evt) {
@@ -135,9 +193,12 @@
         },
 
         clearHandler: function (evt) {
-            this.ele.outputNode.innerHTML = "";
-            this.ele.numberNode.value = "";
-            this.ele.nameNode.value = "";
+            var ele = this.ele;
+            ele.outputNode.innerHTML = "";
+            ele.numberNode.value = "";
+            ele.nameNode.value = "";
+            ele.otherTableNode.innerHTML = "";
+            ele.tableContainerNode.getElementsByTagName('table')[0].style.width = "100%";
         },
 
         clearNameHandler: function () {
@@ -148,18 +209,49 @@
             this.ele.numberNode.value = "";
         },
 
+        /**
+         * 清空其他表格
+         */
+        clearOtherTable: function () {
+            this.ele.otherTableNode.innerHTML = "";
+        },
+
+        calcHandler: function(evt) {
+            var me = this,
+                target = evt.target,
+                number = this.getQdhNumber(),
+                name = this.getName(),
+                reg = /[^\,\，\s]+/g,
+                numberArr = number.match(reg) || [],
+                nameArr = name.match(reg) || [],
+                text = "";
+            switch(target.id){
+                case "js_qdh_name" :
+                    text = nameArr.length+ "人";
+                    me.ele.nameCalcNode.innerHTML = text;
+                    break;
+                case "js_qdh_number" :
+                    text = numberArr.length + "道";
+                    me.ele.numberCalcNode.innerHTML = text;
+                    break;
+            }
+        },
+
         renderData: function () {
             var number = this.getQdhNumber(),
                 name = this.getName(),
                 reg = /[^\,\，\s]+/g,
                 numberArr = number.match(reg),
-                nameArr = name.match(reg);
-            console.log(number, "number");
-            console.log(nameArr, "name");
+                nameArr = name.match(reg),
+                tempArr = {},
+                tableNode = [],
+                tableNodes = null;
+            // console.log(number, "number");
+            // console.log(nameArr, "name");
             nameArr = this.starRandom(nameArr);
             numberArr = this.buildNumber(numberArr, nameArr);
-            console.log(numberArr, "构建后的球道号");
-            console.log(nameArr, "随机后的");
+            // console.log(numberArr, "构建后的球道号");
+            // console.log(nameArr, "随机后的");
             var trNode = nameArr.map(function (item, index) {
                 if ((numberArr[index].match(/\d+/)[0]) % 2 === 0) {
                     className = "even";
@@ -168,7 +260,10 @@
                 }
                 return "<tr class=" + className + "><td>" + (index + 1) + "</td><td>" + numberArr[index] + "</td><td>" + item + "</td></tr>";
             });
-            this.ele.outputNode.innerHTML = trNode.join("");
+            tempArr = this.tableColumn(trNode, 25);
+            this.ele.outputNode.innerHTML = tempArr[0].join("");
+            this.clearOtherTable();
+            this.buildOtherTable(tempArr);
         }
 
     };

@@ -1,8 +1,12 @@
+html,body {
+    width: 100%;
+}
 body{
     margin: 0;
     font-size: 14px;
     font-family: "Helvetica Neue", Arial, "Lucida Grande", "Lucida Sans Unicode", Lucida, sans-serif;
 }
+
 .clearfix:after{
     content: '';
     display: block;
@@ -22,13 +26,9 @@ body{
 }
 .qdh-article{
     float: left;
-    width: 45%;
+    width: 37%;
     margin-right: 2%;
     border-right: 1px solid #dddddd;
-}
-.qdh-table-container{
-    float: left;
-    width: 50%;
 }
 .qdh-input-row{
     margin-bottom: 15px;
@@ -50,6 +50,9 @@ body{
 }
 .qdh-input-button button:hover{
     background-color: #f1f1f1;
+}
+.qdh-input-row{
+    position: relative;
 }
 .qdh-input-row label{
     display: flex;
@@ -95,11 +98,20 @@ body{
 .qdh-input-row button:hover{
     background-color: #f1f1f1;
 }
+.qdh-table-container{
+    float: left;
+    width: 60%;
+}
+
 .qdh-table{
     border: 1px solid #ddd;
     border-collapse: collapse;
     width: 100%;
-    margin: 0 auto;
+    float: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0 1%;
 }
 .qdh-table td,.qdh-table th{
     text-align: center;
@@ -108,4 +120,10 @@ body{
 }
 .qdh-table tbody tr.even{
     background-color: #efefef;
+}
+.qdh_name_calc{
+    position: absolute;
+    right:45px;
+    bottom:26px;
+    color: #666;
 }
