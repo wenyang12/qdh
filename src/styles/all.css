@@ -1,0 +1,111 @@
+body{
+    margin: 0;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Arial, "Lucida Grande", "Lucida Sans Unicode", Lucida, sans-serif;
+}
+.clearfix:after{
+    content: '';
+    display: block;
+    width: 0;
+    line-height: 0;
+    height: 0;
+    font-size: 0;
+    clear: both;
+}
+.qdh-container{
+    max-width:950px;
+    margin: 0 auto;
+}
+.qdh-title{
+    margin-bottom: 15px;
+    text-align: center;
+}
+.qdh-article{
+    float: left;
+    width: 45%;
+    margin-right: 2%;
+    border-right: 1px solid #dddddd;
+}
+.qdh-table-container{
+    float: left;
+    width: 50%;
+}
+.qdh-input-row{
+    margin-bottom: 15px;
+}
+.qdh-input-button{
+    margin-bottom: 15px;
+    clear: both;
+    text-align: right;
+    margin-right:10px;
+}
+.qdh-input-button button{
+    border: 1px solid #dddddd;
+    padding: 3px 5px;
+    cursor: pointer;
+    background-color: transparent;
+    margin-left: 10px;
+    border-radius: 5px;
+    min-width: 55px;
+}
+.qdh-input-button button:hover{
+    background-color: #f1f1f1;
+}
+.qdh-input-row label{
+    display: flex;
+}
+.qdh-input-row i{
+    display: block;
+    padding: 5px;
+    margin-left: 100px;
+    font-size: 12px;
+    color: #999;
+}
+
+.qdh-input-row span{
+    display: inline-block;
+    vertical-align: top;
+    width: 100px;
+    text-align: right;
+    padding: 5px 5px 0 0;
+    margin-bottom: 15px;
+}
+.qdh-input-row textarea {
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #dddddd;
+    height: 80px;
+    padding: 3px 5px;
+    max-width:200px;
+    flex:auto;
+}
+.qdh-input-row button{
+    margin: 0 10px;
+    border: 1px solid #dddddd;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 5px;
+    height:24px;
+    line-height: 24px;
+    width:60px;
+    min-width:60px;
+    text-align: center;
+
+}
+.qdh-input-row button:hover{
+    background-color: #f1f1f1;
+}
+.qdh-table{
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+}
+.qdh-table td,.qdh-table th{
+    text-align: center;
+    padding: 3px 5px;
+    border: 1px solid #ddd;
+}
+.qdh-table tbody tr.even{
+    background-color: #efefef;
+}

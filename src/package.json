@@ -1,0 +1,14 @@
+{
+  "name": "qdh",
+  "version": "1.0.0",
+  "description": "",
+  "main": "views/main.html",
+  "window": {
+    "min_width": 700,
+    "min_height": 500,
+    "icon": "assets/icon.png",
+    "width": 1000
+  },
+  "author": "wenyang",
+  "license": "ISC"
+}
