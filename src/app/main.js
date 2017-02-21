@@ -279,19 +279,16 @@
          * @param evt
          */
         operationHandler: function (evt) {
-            var target = evt.target,
-                maskNode = this.getEle("js_mask");
+            var target = evt.target;
             switch(target.className){
                 case "a_1":
                     //放大
                     this.ele.tableContainerNode.classList.add("zoomout");
-                    maskNode.style.display = "block";
                     this.ele.randomNode.classList.add("buttonfix");
                     break;
                 case "a_2":
                     //缩小
                     this.ele.tableContainerNode.classList.remove("zoomout");
-                    maskNode.style.display = "none";
                     this.ele.randomNode.classList.remove("buttonfix");
                     break;
             }
