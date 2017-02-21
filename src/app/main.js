@@ -1,9 +1,13 @@
 /**
  * Created by weny on 2017/2/20.
- * 规则：两个道为一组，人员分配相等时，剩余的人数按一下分配
- * 1，首先分配到组的单道上
- * 2，还有人员未分完的，则再次分配到单组的双道上。
- * 3，假如以上两个规则还未分配完人数，则放在双组双道上。
+ * 规则：两个道为一组，人员分配相等时，剩余的人数按以下分配
+ * 1，首先分配到单组单道上
+ * 2，再次分配到双组单道上
+ * 3，再次分配到单组双道上。
+ * 4，再次分配到双组双道上。
+ *
+ * 以上从1开始分配有剩余就一直分配，到4为止，
+ *
  */
 (function () {
     var qdh = {
@@ -75,7 +79,7 @@
         },
 
         /**
-         * 根据给的双道，过滤出，单组双道,和双组双道
+         * 根据给的双道或单道，过滤出，（单组双道,和双组双道）或（单组单道，和双组单道）
          * @param Array even 双道数组
          */
         findEvenDouble: function(even) {
@@ -110,15 +114,13 @@
                 oddNumberLen = oddNumber.length,
                 tempNumber = 0, //分配给单数球道后，剩余的人数
                 tempEvenNumber = [], //分配给单数球道后，剩余的人数分配到的双道上
-                findEvenDouble = this.findEvenDouble(evenNumber),
-                oddEven = findEvenDouble.oddEven, //单组双道
-                evenEven = findEvenDouble.evenEven; //双组双道
-
-            if(surplusPerson > oddNumberLen){ //剩余的人数大于单数球道时
-                tempNumber = surplusPerson - oddNumberLen;
-                tempEvenNumber =oddEven.concat(evenEven).slice(0, tempNumber);
-            }
-            result = oddNumber.concat(tempEvenNumber);
+                findEvenDoubleEven = this.findEvenDouble(evenNumber),
+                findEvenDoubleOdd = this.findEvenDouble(oddNumber),
+                oddEven = findEvenDoubleEven.oddEven, //单组双道
+                evenEven = findEvenDoubleEven.evenEven, //双组双道
+                oddOdd = findEvenDoubleOdd.oddEven, //单组单道
+                evenOdd = findEvenDoubleOdd.evenEven; //双组单道
+            result = oddOdd.concat(evenOdd, oddEven, evenEven);
             return result;
         },
 
