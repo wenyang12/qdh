@@ -38,6 +38,62 @@
         },
 
         /**
+         * 获取分配后剩余的人数
+         * @param numberArr  球道数组
+         * @param nameArr    人员数组
+         */
+        surplusPerson: function (numberArr, nameArr) {
+            var numberLen = numberArr.length,
+                nameLen = nameArr.length;
+            return nameLen - (nameLen % numberLen);
+        },
+
+        /**
+         * 获取单数或双数
+         * @param arr
+         * @return Array  单数数组
+         */
+        getOddAndEven: function (arr) {
+           var odd = [],
+               even = [];
+            arr.forEach(function (item) {
+                if((item & 1) === 1){
+                    //单数
+                    odd.push(item);
+                }else{
+                    even.push(item);
+                }
+            });
+            return {
+                odd: odd,
+                even: even
+            };
+        },
+
+        /**
+         * todo:剩余人数的分配
+         * @surplusPerson 剩余人数
+         * @return  用于分配剩余人数的球道数组
+         */
+        surplusPersonAllot : function (numberArr ,nameArr) {
+            var result = [],
+                getOddAndEven = this.getOddAndEven(numberArr),
+                surplusPerson = this.surplusPerson(numberArr, nameArr),
+                oddNumber = getOddAndEven.odd,
+                evenNumber = getOddAndEven.even,
+                oddNumberLen = oddNumber.length,
+                tempNumber = 0, //分配给单数球道后，剩余的人数
+                tempEvenNumber = []; //分配给单数球道后，剩余的人数分配到的双道上
+
+            if(surplusPerson > oddNumberLen){ //剩余的人数大于单数球道时
+                tempNumber = surplusPerson - oddNumberLen;
+                tempEvenNumber =evenNumber.reverse().slice(0, tempNumber);
+            }
+            result = oddNumber.concat(tempEvenNumber);
+            return result;
+        },
+
+        /**
          * 随机捣乱姓名
          * @nameArr 姓名数组
          */
@@ -72,7 +128,9 @@
                 tempItem = 0,
                 wordItem = 0,
                 a = 0,
-                result = [];
+                result = [],
+                surplusPerson = me.surplusPerson(numberArr, nameArr), //剩余的人数
+                surplusPersonAllot = me.surplusPersonAllot(numberArr, nameArr);
             for (var i = 0; i < nameLen; i++) {
                 if ((i + 1) > numberLen) {
                     tempItem = (i + 1) % numberLen;
@@ -80,7 +138,12 @@
                 } else {
                     tempItem = i;
                 }
-                result.push(numberArr[tempItem]);
+                if( i >= surplusPerson ){ //剩余的人数分配
+                    console.log("人数序号："+i,tempItem, "剩余的人数");
+                    result.push(surplusPersonAllot[tempItem]);
+                }else{
+                    result.push(numberArr[tempItem]);
+                }
             }
             result.sort(function (a, b) {
                 return a - b;
@@ -171,6 +234,7 @@
             this.ele.nameCalcNode = this.getEle("js_name_calc");
             this.ele.tableContainerNode = this.getEle("js_table_container");
             this.ele.otherTableNode = this.getEle("js_table_other");
+            this.ele.operationNode = this.getEle("js_operation");
         },
 
         initEvent: function () {
@@ -182,6 +246,7 @@
             ele.numberClearNode.addEventListener("click", me.clearNumberHandler.bind(me));
             ele.numberNode.addEventListener("input", me.calcHandler.bind(me));
             ele.nameNode.addEventListener("input", me.calcHandler.bind(me));
+            ele.operationNode.addEventListener("click", me.operationHandler.bind(me));
         },
 
         randomHandler: function (evt) {
@@ -198,7 +263,7 @@
             ele.numberNode.value = "";
             ele.nameNode.value = "";
             ele.otherTableNode.innerHTML = "";
-            ele.tableContainerNode.getElementsByTagName('table')[0].style.width = "100%";
+            ele.tableContainerNode.getElementsByTagName('table')[0].style.width = "98%";
         },
 
         clearNameHandler: function () {
@@ -207,6 +272,30 @@
 
         clearNumberHandler: function () {
             this.ele.numberNode.value = "";
+        },
+
+        /**
+         * 放大缩小回调
+         * @param evt
+         */
+        operationHandler: function (evt) {
+            var target = evt.target,
+                maskNode = this.getEle("js_mask");
+            switch(target.className){
+                case "a_1":
+                    //放大
+                    this.ele.tableContainerNode.classList.add("zoomout");
+                    maskNode.style.display = "block";
+                    this.ele.randomNode.classList.add("buttonfix");
+                    break;
+                case "a_2":
+                    //缩小
+                    this.ele.tableContainerNode.classList.remove("zoomout");
+                    maskNode.style.display = "none";
+                    this.ele.randomNode.classList.remove("buttonfix");
+                    break;
+            }
+            evt.preventDefault();
         },
 
         /**
