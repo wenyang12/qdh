@@ -22,10 +22,11 @@ body{
     position: relative;
 }
 .qdh-title{
-    margin-bottom: 15px;
     text-align: center;
     position: relative;
     z-index: 30;
+    width:400px;
+    margin:0 auto 15px;
 }
 .qdh-article{
     float: left;
@@ -156,15 +157,17 @@ body{
 }
 .qdh-table-operation{
     position: absolute;
-    right: 15px;
+    right: 3%;
     top:20px;
 }
 .qdh-table-operation a{
-    margin-left: 5px;
+    margin-left: 10px;
+    display: inline-block;
 }
 .buttonfix{
     position: fixed;
     top:17px;
     z-index: 30;
-    right:90px;
+    right:3%;
+    margin-right: 75px;
 }
