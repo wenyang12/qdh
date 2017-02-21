@@ -139,7 +139,7 @@
                     tempItem = i;
                 }
                 if( i >= surplusPerson ){ //剩余的人数分配
-                    console.log("人数序号："+i,tempItem, "剩余的人数");
+                    // console.log("人数序号："+i,tempItem, "剩余的人数");
                     result.push(surplusPersonAllot[tempItem]);
                 }else{
                     result.push(numberArr[tempItem]);
