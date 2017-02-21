@@ -143,8 +143,11 @@ body{
 }
 .qdh-table td,.qdh-table th{
     text-align: center;
-    padding: 3px 5px;
+    padding: 2px 5px;
     border: 1px solid #ddd;
+}
+.qdh-table th{
+    padding: 3px 5px;
 }
 .qdh-table tbody tr.even{
     background-color: #efefef;
