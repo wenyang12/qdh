@@ -5,6 +5,7 @@ body{
     margin: 0;
     font-size: 14px;
     font-family: "Helvetica Neue", Arial, "Lucida Grande", "Lucida Sans Unicode", Lucida, sans-serif;
+    background-color: #dde7f6;
 }
 
 .clearfix:after{
@@ -17,7 +18,7 @@ body{
     clear: both;
 }
 .qdh-container{
-    max-width:950px;
+    width:950px;
     margin: 0 auto;
     position: relative;
 }
@@ -26,13 +27,12 @@ body{
     position: relative;
     z-index: 30;
     width:400px;
-    margin:0 auto 15px;
+    margin:0 auto 40px;
 }
 .qdh-article{
     float: left;
     width: 37%;
     margin-right: 2%;
-    border-right: 1px solid #dddddd;
 }
 .qdh-input-row{
     margin-bottom: 15px;
@@ -41,17 +41,22 @@ body{
     margin-bottom: 15px;
     clear: both;
     text-align: right;
-    margin-right:10px;
+    margin-right:13px;
 }
 .qdh-input-button button{
-    border: 1px solid #dddddd;
-    padding: 3px 5px;
+    border: 1px solid #333;
+    line-height:22px;
+    height: 24px;
     cursor: pointer;
-    background-color: transparent;
-    margin-left: 10px;
-    border-radius: 5px;
-    min-width: 55px;
+    min-width: 60px;
+    text-align:center;
+    padding:0;
+    background-color: #ffffcd;
 }
+.qdh-input-button button:last-child{
+    border-left:none;
+}
+
 .qdh-input-button button:hover{
     background-color: #f1f1f1;
 }
@@ -61,10 +66,13 @@ body{
 .qdh-input-row label{
     display: flex;
 }
+.row-right{
+    position: relative;
+}
 .qdh-input-row i{
     display: block;
     padding: 5px;
-    margin-left: 100px;
+    margin-left: 68px;
     font-size: 12px;
     color: #999;
 }
@@ -72,31 +80,37 @@ body{
 .qdh-input-row span{
     display: inline-block;
     vertical-align: top;
-    width: 100px;
-    text-align: right;
-    padding: 5px 5px 0 0;
     margin-bottom: 15px;
+    background-color: #ffffcd;
+    width:65px;
+    height: 22px;
+    line-height:22px;
+    text-align: center;
+    border:1px solid #666;
+    border-right:none;
 }
 .qdh-input-row textarea {
     display: inline-block;
     vertical-align: top;
-    border: 1px solid #dddddd;
+    border: 1px solid #666;
     height: 80px;
     padding: 3px 5px;
     max-width:200px;
     flex:auto;
+    background-color: #fbebf7;
 }
 .qdh-input-row button{
-    margin: 0 10px;
-    border: 1px solid #dddddd;
+    border: 1px solid #666;
+    border-left:none;
+    padding:0;
+    background-color: #ffffcd;
     cursor: pointer;
-    background-color: transparent;
-    border-radius: 5px;
     height:24px;
-    line-height: 24px;
+    line-height: 20px;
     width:60px;
     min-width:60px;
     text-align: center;
+    font-size: 14px;
 
 }
 .qdh-input-row button:hover{
@@ -105,7 +119,7 @@ body{
 .qdh-table-container{
     float: left;
     width: 60%;
-    background: #FFFFFF;
+    background-color: #dde7f6;
 }
 .zoomout {
     width: 96%;
@@ -132,7 +146,6 @@ body{
 }
 
 .qdh-table{
-    border: 1px solid #ddd;
     border-collapse: collapse;
     width: 98%;
     float: left;
@@ -144,33 +157,60 @@ body{
 .qdh-table td,.qdh-table th{
     text-align: center;
     padding: 2px 5px;
-    border: 1px solid #ddd;
+
 }
 .qdh-table th{
     padding: 3px 5px;
+    border: 1px solid #666;
+    background-color: #ffffcd;
 }
 .qdh-table tbody tr.even{
-    background-color: #efefef;
+    background-color: #ffffcd;
 }
 .qdh_name_calc{
+    width:59px;
+    height:22px;
+    line-height:22px;
+    font-size: 14px;
+    text-align: center;
+    background-color: #ffffcd;
+    border:1px solid #333;
+    border-left:none;
     position: absolute;
-    right:45px;
-    bottom:26px;
-    color: #666;
+    bottom:0;
 }
 .qdh-table-operation{
     position: absolute;
-    right: 3%;
+    right: 2%;
     top:20px;
 }
-.qdh-table-operation a{
-    margin-left: 10px;
-    display: inline-block;
+.fangda .qdh-table-operation{
+    right:3%;
 }
+.qdh-table-operation a{
+    display: inline-block;
+    background-color: #ffffcd;
+    text-align: center;
+    padding: 3px 8px 3px 16px;
+    vertical-align: middle;
+    text-decoration: none;
+}
+.qdh-table-operation a:last-child{
+    padding: 3px 16px 3px 8px;
+}
+
 .buttonfix{
     position: fixed;
-    top:17px;
+    top:19px;
     z-index: 30;
-    right:3%;
+    right:5%;
     margin-right: 75px;
+}
+.copyright{
+    padding-top: 35px;
+    text-align: center;
+    width:950px;
+    margin:50px auto 0;
+    border-top: 1px solid #dddddd;
+    height:50px;
 }

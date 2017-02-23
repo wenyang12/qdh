@@ -316,11 +316,13 @@
                     //放大
                     this.ele.tableContainerNode.classList.add("zoomout");
                     this.ele.randomNode.classList.add("buttonfix");
+                    document.body.classList.add("fangda");
                     break;
                 case "a_2":
                     //缩小
                     this.ele.tableContainerNode.classList.remove("zoomout");
                     this.ele.randomNode.classList.remove("buttonfix");
+                    document.body.classList.remove("fangda");
                     break;
             }
             evt.preventDefault();
