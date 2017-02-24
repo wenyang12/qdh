@@ -142,6 +142,7 @@
                 return a.item - b.item;
             });
 //               console.log(tempArr,"排序后");
+            this.ele.tableContainerNode.getElementsByTagName('table')[0].style.width = "98%";
             return tempArr.map(function (item) {
                 return item.value;
             });
@@ -250,6 +251,21 @@
             main(newArr);
             // console.log(result);
             return result;
+        },
+
+        /**
+         * 根据屏幕分辨率计算屏幕分辨率设置表格的高
+         * @returns {number}
+         */
+        calcTableRowHeight: function () {
+            var screenHeight = window.screen.height - 250,
+                tableRowHeight = Math.floor(screenHeight / 25),
+                trNode = this.ele.tableContainerNode.getElementsByTagName("tr");
+            if(tableRowHeight > 23){
+                Array.prototype.slice.call(trNode).forEach(function (item) {
+                    item.style.height = tableRowHeight + "px";
+                });
+            }
         },
 
         initElement: function () {
@@ -383,6 +399,7 @@
             this.ele.outputNode.innerHTML = tempArr[0].join("");
             this.clearOtherTable();
             this.buildOtherTable(tempArr);
+            this.calcTableRowHeight();
         }
 
     };

@@ -154,13 +154,16 @@ body{
     box-sizing: border-box;
     margin: 0 1%;
 }
+.qdh-table tr{
+    height: 23px;
+    max-height:50px;
+}
 .qdh-table td,.qdh-table th{
     text-align: center;
-    padding: 2px 5px;
-
+    padding: 0 3px;
+    border: 1px solid #999;
 }
 .qdh-table th{
-    padding: 3px 5px;
     border: 1px solid #666;
     background-color: #ffffcd;
 }
@@ -186,6 +189,9 @@ body{
 }
 .fangda .qdh-table-operation{
     right:3%;
+}
+.fangda .qdh-input-button button {
+    padding: 0 5px;
 }
 .qdh-table-operation a{
     display: inline-block;
