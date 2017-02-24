@@ -13,6 +13,12 @@
     var qdh = {
         ele: {}, //元素dom对象
         word: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+        options: {
+            tableMinHeight: 23,  //表格的单元格最小高度
+            tableMaxHeight: 50, //表格的单元格最大高度
+            tableColumn: 25,  //需要多少个人数划分为一个表格,
+            reduceScreenHeight: 300 //需要减掉的屏幕高度
+        },
         init: function () {
             this.initElement();
             this.initEvent();
@@ -233,12 +239,12 @@
         /**
          * 分表格
          * @param arr  表格填充的数组
-         * @param number 需要多少个人数划分为一个表格
          */
-        tableColumn: function (arr,number) {
+        tableColumn: function (arr) {
             var newArr = arr.slice(),
                 result = {},
-                i = 0;
+                i = 0,
+                number = this.options.tableColumn;
             function main(newArr) {
                 if(newArr.length <= number){
                     result[i++] = newArr;
@@ -257,11 +263,15 @@
          * 根据屏幕分辨率计算屏幕分辨率设置表格的高
          * @returns {number}
          */
-        calcTableRowHeight: function () {
-            var screenHeight = window.screen.height - 250,
-                tableRowHeight = Math.floor(screenHeight / 25),
+        calcTableRowHeight: function (trlen) {
+            var options = this.options,
+                screenHeight = window.screen.height - options.reduceScreenHeight,
+                tableColumn = options.tableColumn,
+                tempTrlen = trlen > tableColumn ? tableColumn: trlen,
+                tableRowHeight = Math.floor(screenHeight / tempTrlen),
                 trNode = this.ele.tableContainerNode.getElementsByTagName("tr");
-            if(tableRowHeight > 23){
+            if(tableRowHeight > options.tableMinHeight){
+                tableRowHeight = tableRowHeight >= options.tableMaxHeight ? options.tableMaxHeight : tableRowHeight;
                 Array.prototype.slice.call(trNode).forEach(function (item) {
                     item.style.height = tableRowHeight + "px";
                 });
@@ -395,11 +405,11 @@
                 }
                 return "<tr class=" + className + "><td>" + (index + 1) + "</td><td>" + numberArr[index] + "</td><td>" + item + "</td></tr>";
             });
-            tempArr = this.tableColumn(trNode, 25);
+            tempArr = this.tableColumn(trNode);
             this.ele.outputNode.innerHTML = tempArr[0].join("");
             this.clearOtherTable();
             this.buildOtherTable(tempArr);
-            this.calcTableRowHeight();
+            this.calcTableRowHeight(nameArr.length);
         }
 
     };
