@@ -14,7 +14,7 @@
         ele: {}, //元素dom对象
         word: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
         options: {
-            tableMinHeight: 23,  //表格的单元格最小高度
+            tableMinHeight: 22,  //表格的单元格最小高度
             tableMaxHeight: 50, //表格的单元格最大高度
             tableColumn: 25,  //需要多少个人数划分为一个表格,
             reduceScreenHeight: 300 //需要减掉的屏幕高度
